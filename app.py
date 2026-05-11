@@ -4,9 +4,9 @@ from PIL import Image
 import os
 import time
 
-import tf_keras
-from tf_keras.models import load_model
-from tf_keras.preprocessing import image as keras_image
+import keras
+from keras.models import load_model
+from keras.preprocessing import image as keras_image
 
 # =========================================================
 # PAGE CONFIG
@@ -385,7 +385,7 @@ uploaded_file = st.file_uploader(
 
 def predict_mask(img):
     img = img.resize((IMG_SIZE, IMG_SIZE))
-    img_array = keras_image.img_to_array(img)
+    img_array = np.array(img, dtype=np.float32)
     img_array = img_array / 255.0
     img_array = np.expand_dims(img_array, axis=0)
     prediction = model.predict(img_array, verbose=0)
